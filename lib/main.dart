@@ -1,4 +1,4 @@
-import 'package:diary/screens/mainMenu.dart';
+import 'package:diary/ui/mainMenu.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
