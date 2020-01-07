@@ -2,8 +2,9 @@ import 'package:diary/ui/mainMenu.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
+  //debugShowCheckedModeBanner: false,
   home: SplashScreen(),
-  initialRoute: '/main',
+  //initialRoute: '/main',
   routes: {
     '/main': (context)=>MainMenu(),
   },
