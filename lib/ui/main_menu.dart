@@ -46,7 +46,9 @@ class _MainMenuState extends State<MainMenu> {
         )
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: (){
+          Navigator.pushNamed(context, "/newLeaf");
+        },
         child: Icon(Icons.add, color: Colors.white,),
         backgroundColor: Colors.grey,
         elevation: 30,

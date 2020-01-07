@@ -1,4 +1,5 @@
 import 'package:diary/ui/main_menu.dart';
+import 'package:diary/ui/new_story.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
@@ -7,6 +8,7 @@ void main() => runApp(MaterialApp(
   //initialRoute: '/main',
   routes: {
     '/main': (context)=>MainMenu(),
+    '/newLeaf': (context)=>NewLeaf(),
   },
 ));
 
