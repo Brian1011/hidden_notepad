@@ -36,6 +36,7 @@ class DatabaseHelper {
   Future insertNotes(Note note) async {
     var dbClient = await db;
     int count = await dbClient.insert(Constants.TABLE_NAME, note.toMap());
+    print("Insert Data "+count.toString());
     return count;
   }
 
@@ -43,6 +44,7 @@ class DatabaseHelper {
   Future<List> getAllNotes() async{
     var dbClient = await db;
     var result = await dbClient.rawQuery("select * from ${Constants.TABLE_NAME} ORDER BY ${Constants.COLUMN_TEXT} ASC");
+    result.forEach((row)=>print(row));
     return result.toList();
   }
 

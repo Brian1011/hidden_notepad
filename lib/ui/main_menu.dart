@@ -18,7 +18,9 @@ class _MainMenuState extends State<MainMenu> {
     // insert data
     Note note = new Note("Hi Brian", "1/1/2019");
     print("NOte "+note.text);
-    print(dbHelper.insertNotes(note));
+    //print(dbHelper.insertNotes(note));
+    //int result = dbHelper.insertNotes(note);
+    //print("results: "+result.toString());
 
     // view all
     //List<Note> notes = databaseHelper.getAllNotes();
