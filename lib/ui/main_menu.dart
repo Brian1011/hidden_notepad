@@ -13,21 +13,16 @@ class _MainMenuState extends State<MainMenu> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //final dbHelper = DatabaseHelper.instance;
 
     // insert data
-    Note note = new Note("Hi Brian", "1/1/2019");
-    print("NOte "+note.text);
-    //print(dbHelper.insertNotes(note));
+    Note note = new Note("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ..", "7th January 2019");
+    print(dbHelper.insertNotes(note));
     //int result = dbHelper.insertNotes(note);
     //print("results: "+result.toString());
 
-    // view all
-    //List<Note> notes = databaseHelper.getAllNotes();
-    //print(dbHelper.getAllNotes().toString());
   }
 
-  // future Builder
+  // future Builder to display notes infr
   FutureBuilder myStories(){
     return FutureBuilder<List>(
       future: dbHelper.getAllNotes(),
@@ -41,14 +36,13 @@ class _MainMenuState extends State<MainMenu> {
                 dynamic data = snapshot.data[index];
                 Note myNote = Note.map(data);
                 note.id = data['id'];
-                //Note note = snapshot.data[index];
                 return  Card(
                   color: Colors.black45,
                   elevation: 4,
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 5),
                   child: ListTile(
                     leading: Icon(Icons.edit, color: Colors.grey[600],),
-                    title: Text(myNote.text, style: TextStyle(color: Colors.white)),
+                    title: Text(shorterStory(myNote.text), style: TextStyle(color: Colors.white)),
                     subtitle: Text(myNote.date,style: TextStyle(color: Colors.white)),
                     trailing: Icon(Icons.delete, color: Colors.red,),
                   ),
@@ -99,6 +93,16 @@ class _MainMenuState extends State<MainMenu> {
         elevation: 30,
       ),
     );
+  }
+
+  // reduce string size
+  String shorterStory(String story){
+    if(story.length>20){
+      return story.substring(0,15)+"...";
+    }else{
+      return story;
+    }
+
   }
 
 }
