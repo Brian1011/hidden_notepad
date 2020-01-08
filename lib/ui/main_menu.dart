@@ -53,17 +53,6 @@ class _MainMenuState extends State<MainMenu> {
                 trailing: Icon(Icons.delete, color: Colors.red,),
               ),
             ),
-            Card(
-              color: Colors.black45,
-              elevation: 4,
-              margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 5),
-              child: ListTile(
-                leading: Icon(Icons.edit, color: Colors.grey[600],),
-                title: Text('Am grateful for', style: TextStyle(color: Colors.white),),
-                subtitle: Text('7th Janauary 2020',style: TextStyle(color: Colors.white)),
-                trailing: Icon(Icons.delete, color: Colors.red,),
-              ),
-            ),
           ],
         )
       ),
