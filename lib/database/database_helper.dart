@@ -7,6 +7,9 @@ import 'package:diary/util/constants.dart';
 import 'package:diary/models/notes.dart';
 
 class DatabaseHelper {
+  DatabaseHelper._privateConstructor();
+  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+
   static final DatabaseHelper _INSTANCE = new DatabaseHelper();
   factory DatabaseHelper() => _INSTANCE;
   static Database _db;

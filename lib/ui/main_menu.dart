@@ -1,3 +1,5 @@
+import 'package:diary/database/database_helper.dart';
+import 'package:diary/models/notes.dart';
 import 'package:flutter/material.dart';
 class MainMenu extends StatefulWidget {
   @override
@@ -5,6 +7,24 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
+  final dbHelper = DatabaseHelper.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //final dbHelper = DatabaseHelper.instance;
+
+    // insert data
+    Note note = new Note("Hi Brian", "1/1/2019");
+    print("NOte "+note.text);
+    print(dbHelper.insertNotes(note));
+
+    // view all
+    //List<Note> notes = databaseHelper.getAllNotes();
+    print(dbHelper.getAllNotes().toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
