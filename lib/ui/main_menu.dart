@@ -24,7 +24,55 @@ class _MainMenuState extends State<MainMenu> {
 
     // view all
     //List<Note> notes = databaseHelper.getAllNotes();
-    print(dbHelper.getAllNotes().toString());
+    //print(dbHelper.getAllNotes().toString());
+  }
+
+  // future Builder
+  FutureBuilder myStories(){
+    return FutureBuilder<List>(
+      future: dbHelper.getAllNotes(),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot){
+        List<Widget> children;
+        if(snapshot.hasData){
+          Note note = new Note("", "");
+          return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index){
+                dynamic data = snapshot.data[index];
+                Note myNote = Note.map(data);
+                note.id = data['id'];
+                //Note note = snapshot.data[index];
+                return  Card(
+                  color: Colors.black45,
+                  elevation: 4,
+                  margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 5),
+                  child: ListTile(
+                    leading: Icon(Icons.edit, color: Colors.grey[600],),
+                    title: Text(myNote.text, style: TextStyle(color: Colors.white)),
+                    subtitle: Text(myNote.date,style: TextStyle(color: Colors.white)),
+                    trailing: Icon(Icons.delete, color: Colors.red,),
+                  ),
+                );
+              }
+          );
+
+
+        }else if(snapshot.hasError){
+          children = <Widget>[
+              Icon(Icons.error_outline, color: Colors.red, size: 60,)];
+            } else {
+            children = <Widget>[
+              SizedBox(child: CircularProgressIndicator(), width: 60, height: 60,),
+              const Padding(padding: EdgeInsets.only(top: 16), child: Text('Awaiting result...'),)
+            ];
+          }
+          return Center(
+            child: Column(
+              children: children,
+            ),
+          );
+        },
+    );
   }
 
   @override
@@ -40,21 +88,7 @@ class _MainMenuState extends State<MainMenu> {
             decoration: BoxDecoration(
                 color: Colors.grey[800]
             ),
-        child: ListView(
-          children: <Widget>[
-            Card(
-              color: Colors.black45,
-              elevation: 4,
-              margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 5),
-              child: ListTile(
-                leading: Icon(Icons.edit, color: Colors.grey[600],),
-                title: Text('Random Story...', style: TextStyle(color: Colors.white),),
-                subtitle: Text('7th Janauary 2020',style: TextStyle(color: Colors.white)),
-                trailing: Icon(Icons.delete, color: Colors.red,),
-              ),
-            ),
-          ],
-        )
+        child: myStories()
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
@@ -66,4 +100,5 @@ class _MainMenuState extends State<MainMenu> {
       ),
     );
   }
+
 }
