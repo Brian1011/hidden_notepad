@@ -1,6 +1,8 @@
 import 'package:diary/database/database_helper.dart';
 import 'package:diary/models/notes.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 class MainMenu extends StatefulWidget {
   @override
   _MainMenuState createState() => _MainMenuState();
@@ -44,7 +46,22 @@ class _MainMenuState extends State<MainMenu> {
                     leading: Icon(Icons.edit, color: Colors.grey[600],),
                     title: Text(shorterStory(myNote.text), style: TextStyle(color: Colors.white)),
                     subtitle: Text(myNote.date,style: TextStyle(color: Colors.white)),
-                    trailing: Icon(Icons.delete, color: Colors.red,),
+                    //trailing: Icon(Icons.delete, color: Colors.red,),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        // alert are you sure you want to delete
+                        Fluttertoast.showToast(
+                            msg: "Note Erased Sucessfully",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.grey[600],
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                            timeInSecForIos: 1
+                        );
+                      },
+                    ),
                   ),
                 );
               }
