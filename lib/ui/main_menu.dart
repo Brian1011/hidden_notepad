@@ -1,5 +1,6 @@
 import 'package:diary/database/database_helper.dart';
 import 'package:diary/models/notes.dart';
+//import 'package:diary/ui/dialogs/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -50,15 +51,43 @@ class _MainMenuState extends State<MainMenu> {
                     trailing: IconButton(
                       icon: Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
-                        // alert are you sure you want to delete
-                        Fluttertoast.showToast(
-                            msg: "Note Erased Sucessfully",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            backgroundColor: Colors.grey[600],
-                            textColor: Colors.white,
-                            fontSize: 16.0,
-                            timeInSecForIos: 1
+                        //ConfirmDialog().show();
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context){
+                              return AlertDialog(
+                                content: Text("Are you sure you want to erase this note?", style: TextStyle(color: Colors.white),),
+                                backgroundColor: Colors.grey[600],
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("Cancel", style: TextStyle(color: Colors.white),),
+                                    onPressed: (){
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text("Yes",style: TextStyle(color: Colors.white),),
+                                    onPressed: (){
+                                      dbHelper.deleteItem(myNote.id);
+                                      Navigator.of(context).pop();
+                                      Fluttertoast.showToast(
+                                          msg: "Note erased sucessfully",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          backgroundColor: Colors.grey[600],
+                                          textColor: Colors.white,
+                                          fontSize: 16.0,
+                                          timeInSecForIos: 1
+                                      );
+                                     // AppBuilder.of(context).rebuild();
+                                     // myStories();
+                                     Navigator.pushNamed(context, "/main");
+                                      // MainMenu();
+                                    },
+                                  )
+                                ],
+                              );
+                            }
                         );
                       },
                     ),
@@ -119,7 +148,6 @@ class _MainMenuState extends State<MainMenu> {
     }else{
       return story;
     }
-
   }
 
 }
