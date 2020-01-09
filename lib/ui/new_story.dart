@@ -1,5 +1,6 @@
 import 'package:diary/models/notes.dart';
 import 'package:flutter/material.dart';
+import 'package:diary/ui/functions/current_time_date.dart';
 
 class NewLeaf extends StatefulWidget {
   @override
@@ -7,10 +8,11 @@ class NewLeaf extends StatefulWidget {
 }
 
 class _NewLeafState extends State<NewLeaf> {
-  // define a text controller to be used to retrieve value
+  // define a text controller to be used to retrieve textfield value
   final myController = TextEditingController();
   String appBarTitle = "New Leaf";
   int saveButtonPressCount = 0;
+  Note newNote = new Note(" "," ");
 
   // change Title
   void changeTitle(String title){
@@ -73,16 +75,16 @@ class _NewLeafState extends State<NewLeaf> {
   // save new note
   void saveNewNote(String note){
     if(note.length>0 && note.isNotEmpty){
-      // increase count
       saveButtonPressCount = saveButtonPressCount + 1;
 
       if(saveButtonPressCount > 1){
         // update note
-        //this.appBarTitle = "Edit Leaf";
         changeTitle("Edit Leaf");
         dialog("Note Updated", "Changes saved successfully");
       }else{
-        // save new note
+        //save new note
+        //Note newNote = Note(note, CurrentDateTime().getDateToday());
+
         dialog("New Note Saved", "Your note has been saved successfully");
       }
 
@@ -105,4 +107,7 @@ class _NewLeafState extends State<NewLeaf> {
         }
     );
   }
+
+  // get date and time -- Thu, Jan 9, 2020 10:57 AM
+
 }
