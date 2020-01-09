@@ -51,13 +51,19 @@ class _NewLeafState extends State<NewLeaf> {
         decoration: BoxDecoration(
             color: Colors.grey[800]
         ),
-        child: TextField(
-          maxLines: null,
-          keyboardType: TextInputType.multiline,
-          controller: myController,
-          decoration: InputDecoration.collapsed(hintText: "Enter your text here", hintStyle: TextStyle(color: Colors.white)),
-          style: TextStyle(
-            color: Colors.white
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
+            controller: myController,
+            decoration: InputDecoration.collapsed(hintText: "Enter your text here", hintStyle: TextStyle(color: Colors.white, letterSpacing: 1.8,
+                fontSize: 18.0)),
+            style: TextStyle(
+              color: Colors.white,
+              letterSpacing: 1.8,
+              fontSize: 18.0
+            ),
           ),
         ),
       ),
