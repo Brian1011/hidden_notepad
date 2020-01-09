@@ -16,7 +16,7 @@ class _MainMenuState extends State<MainMenu> {
 
     // insert data
     Note note = new Note("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ..", "7th January 2019");
-    print(dbHelper.insertNotes(note));
+    //print(dbHelper.insertNotes(note));
     //int result = dbHelper.insertNotes(note);
     //print("results: "+result.toString());
 
@@ -50,16 +50,16 @@ class _MainMenuState extends State<MainMenu> {
               }
           );
 
-
         }else if(snapshot.hasError){
           children = <Widget>[
               Icon(Icons.error_outline, color: Colors.red, size: 60,)];
-            } else {
-            children = <Widget>[
-              SizedBox(child: CircularProgressIndicator(), width: 60, height: 60,),
-              const Padding(padding: EdgeInsets.only(top: 16), child: Text('Awaiting result...'),)
-            ];
-          }
+        } else {
+          children = <Widget>[
+            SizedBox(height: 10.0,),
+            SizedBox(child: CircularProgressIndicator(backgroundColor: Colors.white,), width: 60, height: 60,),
+            const Padding(padding: EdgeInsets.only(top: 16), child: Text('Awaiting result...', style: TextStyle(color: Colors.white)),)
+          ];
+        }
           return Center(
             child: Column(
               children: children,
