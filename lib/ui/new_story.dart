@@ -1,3 +1,4 @@
+import 'package:diary/database/database_helper.dart';
 import 'package:diary/models/notes.dart';
 import 'package:flutter/material.dart';
 import 'package:diary/ui/functions/current_time_date.dart';
@@ -13,6 +14,7 @@ class _NewLeafState extends State<NewLeaf> {
   String appBarTitle = "New Leaf";
   int saveButtonPressCount = 0;
   Note newNote = new Note(" "," ");
+  final dbHelper = DatabaseHelper.instance;
 
   // change Title
   void changeTitle(String title){
@@ -83,8 +85,8 @@ class _NewLeafState extends State<NewLeaf> {
         dialog("Note Updated", "Changes saved successfully");
       }else{
         //save new note
-        //Note newNote = Note(note, CurrentDateTime().getDateToday());
-
+        Note newNote = Note(note, CurrentDateTime().getDateToday());
+        dbHelper.insertNotes(newNote);
         dialog("New Note Saved", "Your note has been saved successfully");
       }
 
