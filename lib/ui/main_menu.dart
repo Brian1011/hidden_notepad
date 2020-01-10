@@ -1,5 +1,6 @@
 import 'package:diary/database/database_helper.dart';
 import 'package:diary/models/notes.dart';
+import 'package:diary/ui/view_story.dart';
 //import 'package:diary/ui/dialogs/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -25,7 +26,7 @@ class _MainMenuState extends State<MainMenu> {
 
   }
 
-  // future Builder to display notes infr
+  // future Builder to display notes
   FutureBuilder myStories(){
     return FutureBuilder<List>(
       future: dbHelper.getAllNotes(),
@@ -44,6 +45,9 @@ class _MainMenuState extends State<MainMenu> {
                   elevation: 4,
                   margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0, bottom: 5),
                   child: ListTile(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewStory(myNote.id)));
+                    },
                     leading: Icon(Icons.edit, color: Colors.grey[600],),
                     title: Text(shorterStory(myNote.text), style: TextStyle(color: Colors.white)),
                     subtitle: Text(myNote.date,style: TextStyle(color: Colors.white)),
@@ -81,7 +85,7 @@ class _MainMenuState extends State<MainMenu> {
                                       );
                                      // AppBuilder.of(context).rebuild();
                                      // myStories();
-                                     Navigator.pushNamed(context, "/main");
+                                     Navigator.pushReplacementNamed(context, "/main");
                                       // MainMenu();
                                     },
                                   )

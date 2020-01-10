@@ -43,7 +43,7 @@ class DatabaseHelper {
   // get all notes
   Future<List> getAllNotes() async{
     var dbClient = await db;
-    var result = await dbClient.rawQuery("select * from ${Constants.TABLE_NAME} ORDER BY ${Constants.COLUMN_DATE} DESC");
+    var result = await dbClient.rawQuery("select * from ${Constants.TABLE_NAME} ORDER BY ${Constants.COLUMN_ID} DESC");
     //result.forEach((row)=>print(row));
     return result.toList();
   }
