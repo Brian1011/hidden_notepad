@@ -54,14 +54,17 @@ class _NewLeafState extends State<NewLeaf> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+            cursorColor: Colors.white,
             maxLines: null,
             keyboardType: TextInputType.multiline,
             controller: myController,
-            decoration: InputDecoration.collapsed(hintText: "Enter your text here", hintStyle: TextStyle(color: Colors.white, letterSpacing: 1.8,
+            decoration: InputDecoration.collapsed(
+                hintText: "Enter your text here",
+                hintStyle: TextStyle(color: Colors.white, letterSpacing: 0.5,
                 fontSize: 18.0)),
             style: TextStyle(
-              color: Colors.white,
-              letterSpacing: 1.8,
+                color: Colors.white,
+                letterSpacing: 0.5,
               fontSize: 18.0
             ),
           ),
@@ -70,7 +73,7 @@ class _NewLeafState extends State<NewLeaf> {
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           saveNewNote(myController.text);
-          return AlertDialog(content: Text("Alert Dialog"),);
+          //return AlertDialog(content: Text("Alert Dialog"),);
         },
         child: Icon(Icons.save, color: Colors.white,),
         backgroundColor: Colors.grey,
@@ -87,7 +90,7 @@ class _NewLeafState extends State<NewLeaf> {
 
       if(saveButtonPressCount > 1){
         // update note
-        changeTitle("Edit Leaf");
+        changeTitle("Edit leaf");
         dialog("Note Updated", "Changes saved successfully");
       }else{
         //save new note

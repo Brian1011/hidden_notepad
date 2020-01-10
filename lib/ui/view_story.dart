@@ -1,9 +1,11 @@
 import 'package:diary/database/database_helper.dart';
 import 'package:diary/models/notes.dart';
+import 'package:diary/ui/functions/current_time_date.dart';
 import 'package:flutter/material.dart';
 
 class ViewStory extends StatefulWidget {
   final int noteId;
+  //final String noteDateTime = " ";
   const ViewStory(this.noteId);
 
   @override
@@ -13,6 +15,7 @@ class ViewStory extends StatefulWidget {
 class _ViewStoryState extends State<ViewStory> {
   final myController = TextEditingController();
   final dbHelper = DatabaseHelper.instance;
+  String noteDateTime = " ";
 
   @override
   void initState() {
@@ -21,10 +24,6 @@ class _ViewStoryState extends State<ViewStory> {
     // Retrieve data
     dynamic singleNote = dbHelper.getSingleItem(widget.noteId);
     Future<Note> mine = singleNote;
-//    print(singleNote);
-//    print("Yellow");
-    //print(myNote);
-
   }
 
   FutureBuilder myStory(){
@@ -34,15 +33,19 @@ class _ViewStoryState extends State<ViewStory> {
         if(snapshot.hasData){
 //          print(snapshot.data.id);
           myController.text = snapshot.data.text;
+          noteDateTime = snapshot.data.date;
           return TextField(
+            cursorColor: Colors.white,
             maxLines: null,
             keyboardType: TextInputType.multiline,
             controller: myController,
-            decoration: InputDecoration.collapsed(hintText: "Enter your text here", hintStyle: TextStyle(color: Colors.white, letterSpacing: 1.8,
+            decoration: InputDecoration.collapsed(
+                hintText: "Enter your text here",
+                hintStyle: TextStyle(color: Colors.white, letterSpacing: 0.5,
                 fontSize: 18.0)),
             style: TextStyle(
                 color: Colors.white,
-                letterSpacing: 1.8,
+                letterSpacing: 0.5,
                 fontSize: 18.0
             ),
           );
@@ -74,14 +77,14 @@ class _ViewStoryState extends State<ViewStory> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.noteId.toString()),
+        title: Text("Edit leaf"),
         backgroundColor: Colors.black87,
         elevation: 0,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save, color: Colors.white,),
             onPressed: (){
-              //saveNewNote(myController.text);
+              saveNewNote(myController.text);
             },
           )
         ],
@@ -96,9 +99,19 @@ class _ViewStoryState extends State<ViewStory> {
           child: myStory(),
         )
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          saveNewNote(myController.text);
+         //return AlertDialog(content: Text("Alert Dialog"),);
+        },
+        child: Icon(Icons.save, color: Colors.white,),
+        backgroundColor: Colors.grey,
+        elevation: 30,
+      ),
     );
   }
 
+  // alert dialog
   dynamic dialog(String title, String message){
     return showDialog(
         context: context,
@@ -111,6 +124,21 @@ class _ViewStoryState extends State<ViewStory> {
         }
     );
   }
+
+  // save new note
+  void saveNewNote(String note){
+    if(note.length>0 && note.isNotEmpty){
+        // Note newNote = Note(note, CurrentDateTime().getDateToday());
+        Note newNote = Note(note, noteDateTime);
+        newNote.id = widget.noteId;
+        dbHelper.updateItem(newNote);
+        dialog("Note updated", "Changes saved successfully.");
+    }else{
+      dialog("Error", "Your note cannot be empty!");
+    }
+    //Note newNote = Note("")
+  }
+
 }
 
 
