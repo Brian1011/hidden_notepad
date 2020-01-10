@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:diary/database/database_helper.dart';
 import 'package:diary/models/notes.dart';
 import 'package:diary/ui/view_story.dart';
@@ -17,13 +19,6 @@ class _MainMenuState extends State<MainMenu> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    // insert data
-    Note note = new Note("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ..", "7th January 2019");
-    //print(dbHelper.insertNotes(note));
-    //int result = dbHelper.insertNotes(note);
-    //print("results: "+result.toString());
-
   }
 
   // future Builder to display notes
@@ -48,7 +43,8 @@ class _MainMenuState extends State<MainMenu> {
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewStory(myNote.id)));
                     },
-                    leading: Icon(Icons.edit, color: Colors.grey[600],),
+                    //leading: Icon(Icons.edit, color: Colors.grey[600],),
+                    leading: CircleAvatar(backgroundColor: Colors.grey[600],child: Text(oneLetter(myNote.text)),),
                     title: Text(shorterStory(myNote.text), style: TextStyle(color: Colors.white)),
                     subtitle: Text(myNote.date,style: TextStyle(color: Colors.white)),
                     //trailing: Icon(Icons.delete, color: Colors.red,),
@@ -152,6 +148,19 @@ class _MainMenuState extends State<MainMenu> {
     }else{
       return story;
     }
+  }
+
+  // get first letter
+  String oneLetter(String story){
+    return story.substring(0,2).toUpperCase();
+  }
+
+  // random colours
+  String randomColours(){
+    var list = ['blue','red','grey[600]','grey[800]','grey'];
+    final _random = new Random();
+    var element = list[_random.nextInt(list.length)];
+    return element;
   }
 
 }
