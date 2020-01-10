@@ -13,7 +13,8 @@ class _NewLeafState extends State<NewLeaf> {
   final myController = TextEditingController();
   String appBarTitle = "New Leaf";
   int saveButtonPressCount = 0;
-  Note newNote = new Note(" "," ");
+  //Note newNote = new Note(" "," ");
+  Note updatedNote = new Note("", "");
   final dbHelper = DatabaseHelper.instance;
 
   // change Title
@@ -85,18 +86,45 @@ class _NewLeafState extends State<NewLeaf> {
 
   // save new note
   void saveNewNote(String note){
+    print("Text: "+updatedNote.text+" Date: "+ updatedNote.date+ " Id: ");
     if(note.length>0 && note.isNotEmpty){
       saveButtonPressCount = saveButtonPressCount + 1;
 
       if(saveButtonPressCount > 1){
+        print("note is "+note);
         // update note
         changeTitle("Edit leaf");
+        print(updatedNote.text);
+        updatedNote.text = note;
+        print(updatedNote.text);
+        print(updatedNote.id);
+        dbHelper.updateItem(updatedNote);
         dialog("Note Updated", "Changes saved successfully");
       }else{
         //save new note
         Note newNote = Note(note, CurrentDateTime().getDateToday());
-        dbHelper.insertNotes(newNote);
-        dialog("New Note Saved", "Your note has been saved successfully");
+
+        // saved note id
+        int savedNoteId;
+
+        // fetch id of the saved note
+        Future noteData = dbHelper.insertNotes(newNote);
+        noteData.then((data){
+          print(data);
+          savedNoteId = data;
+          print(savedNoteId);
+
+          // update note
+          updatedNote = newNote;
+          updatedNote.id = savedNoteId;
+          print(savedNoteId);
+          print(updatedNote.id);
+          dialog("New Note Saved", "Your note has been saved successfully");
+
+        }, onError: (e){
+          dialog("Error", e);
+        });
+
       }
 
     }else{
