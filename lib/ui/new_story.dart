@@ -91,13 +91,9 @@ class _NewLeafState extends State<NewLeaf> {
       saveButtonPressCount = saveButtonPressCount + 1;
 
       if(saveButtonPressCount > 1){
-        print("note is "+note);
         // update note
         changeTitle("Edit leaf");
-        print(updatedNote.text);
         updatedNote.text = note;
-        print(updatedNote.text);
-        print(updatedNote.id);
         dbHelper.updateItem(updatedNote);
         dialog("Note Updated", "Changes saved successfully");
       }else{
@@ -110,27 +106,20 @@ class _NewLeafState extends State<NewLeaf> {
         // fetch id of the saved note
         Future noteData = dbHelper.insertNotes(newNote);
         noteData.then((data){
-          print(data);
           savedNoteId = data;
-          print(savedNoteId);
 
           // update note
           updatedNote = newNote;
           updatedNote.id = savedNoteId;
-          print(savedNoteId);
-          print(updatedNote.id);
           dialog("New Note Saved", "Your note has been saved successfully");
 
         }, onError: (e){
           dialog("Error", e);
         });
-
       }
-
     }else{
       dialog("Error", "Your note cannot be empty!");
     }
-    //Note newNote = Note("")
   }
 
   // alert dialog
